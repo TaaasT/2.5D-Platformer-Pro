@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     private CharacterController _controller;
     [SerializeField]
     private float _speed = 5f;
+    [SerializeField]
+    private float _gravity = 1f;
 
     void Start()
     {
@@ -20,7 +22,17 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInPut, 0, 0);
         var velocity = direction * _speed;
 
-        _controller.Move(velocity* Time.deltaTime);
+        if(_controller.isGrounded)
+        {
+            // jump 
+        }
+        else
+        {
+            velocity.y -= _gravity;
+        }
+
+
+        _controller.Move(velocity * Time.deltaTime);
 
     }
 }
