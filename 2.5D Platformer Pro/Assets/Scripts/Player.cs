@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     private float _speed = 5f;
     [SerializeField]
     private float _gravity = 1f;
+    [SerializeField]
+    private float _jumpHeight = 15f;
+
 
     void Start()
     {
@@ -24,7 +27,10 @@ public class Player : MonoBehaviour
 
         if(_controller.isGrounded)
         {
-            // jump 
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                velocity.y = _jumpHeight;
+            }
         }
         else
         {
