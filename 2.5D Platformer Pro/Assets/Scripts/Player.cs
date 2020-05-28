@@ -11,6 +11,10 @@ public class Player : MonoBehaviour
     private float _gravity = 1f;
     [SerializeField]
     private float _jumpHeight = 15f;
+    private float _yVelocity;
+
+
+    private bool _grounded;
 
 
     void Start()
@@ -18,27 +22,35 @@ public class Player : MonoBehaviour
         _controller = GetComponent<CharacterController>();
     }
 
-    
-    void Update()
+    private void Update()
+    {
+        _grounded = _controller.isGrounded;
+
+        if (_grounded)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _yVelocity = _jumpHeight;
+            }
+        }
+    }
+
+    void FixedUpdate()
     {
         float horizontalInPut = Input.GetAxis("Horizontal");
         Vector3 direction = new Vector3(horizontalInPut, 0, 0);
         var velocity = direction * _speed;
 
-        if(_controller.isGrounded)
+       
+        if(!_grounded)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                velocity.y = _jumpHeight;
-            }
-        }
-        else
-        {
-            velocity.y -= _gravity;
+            _yVelocity -= _gravity;
         }
 
+        velocity.y = _yVelocity;
 
         _controller.Move(velocity * Time.deltaTime);
 
     }
+
 }
