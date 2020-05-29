@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
             {
                 _yVelocity += _jumpHeight;
                 _canDoubleJump = false;
+                Debug.Log(_yVelocity);
             }
             
         }
