@@ -8,7 +8,7 @@ public class MovingPlatform : MonoBehaviour
     private Transform _targetA, _targetB;
     private bool _switching;
 
-    private float _speed = 1f;
+    private float _speed = 2f;
 
     void Start()
     {
@@ -16,7 +16,7 @@ public class MovingPlatform : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(_switching == false)
         {
@@ -35,6 +35,22 @@ public class MovingPlatform : MonoBehaviour
             _switching = false;
         }
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            other.transform.parent = this.transform;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            other.transform.parent = null;
+        }
     }
 
 }
