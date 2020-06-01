@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _coins;
     private UIManager _uIManager;
+    [SerializeField]
+    private int _lives = 3;
 
     private bool _canDoubleJump;
     private bool _grounded;
@@ -28,6 +30,8 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("The UI Manager is NULL");
         }
+
+        _uIManager.UpdateLivesDisplay(_lives);
     }
 
     private void Update()
